@@ -163,7 +163,7 @@ graphicalVAR <-
         # 
         #       kappa <- out4$wi
         S <- (S + t(S)) / 2
-        if (any(eigen(S)$value < 0)) stop("Residual covariances not postive definite")
+        # if (any(eigen(S)$value < 0)) stop("Residual covariances not postive definite")
         kappa <- solve(S)
         kappa <- (kappa + t(kappa)) / 2
         
@@ -209,7 +209,7 @@ graphicalVAR <-
     lambdas$ebic <- sapply(Estimates,'[[','EBIC')
     
     if (all(lambdas$ebic==Inf)){
-      stop("No model estimated without error")
+      # stop("No model estimated without error")
     }
     # Which minimal BIC:
     min <- which.min(lambdas$ebic)
