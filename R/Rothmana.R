@@ -52,7 +52,7 @@ function(X, Y, lambda_beta, lambda_kappa, convergence = 1e-4, gamma = 0.5, maxit
     beta_old <- beta
     beta <- Beta_C(kappa, beta, X, Y, lambda_beta, lambda_mat, convergence, maxit.in) 
     
-    if (sum(abs(beta - beta_old)) < (convergence * sum(abs(beta_ridge)))){
+    if (sum(abs(beta - beta_old), na.rm = T) < (convergence * sum(abs(beta_ridge), na.rm = T))){
       break
     }
     
@@ -78,17 +78,17 @@ function(X, Y, lambda_beta, lambda_kappa, convergence = 1e-4, gamma = 0.5, maxit
                                       trace = FALSE))
     }
     lik1  <- determinant( out4$wi)$modulus[1]
-    lik2 <- sum(diag( out4$wi%*%WS))
+    lik2 <- sum(diag( out4$wi%*%WS), na.rm = T)
   } else {
     lik1  <- determinant( kappa )$modulus[1]
-    lik2 <- sum(diag( kappa%*%WS))
+    lik2 <- sum(diag( kappa%*%WS), na.rm = T)
   }
 
-  pdO = sum(sum(kappa[upper.tri(kappa,diag=FALSE)] !=0))
+  pdO = sum(sum(kappa[upper.tri(kappa,diag=FALSE)] !=0, na.rm = T), na.rm = T)
   if (mimic == "0.1.2"){
-    pdB = sum(sum(beta !=0))
+    pdB = sum(sum(beta !=0, na.rm = T), na.rm = T)
   } else {
-    pdB = sum(sum(beta[lambda_mat!=0] !=0)) 
+    pdB = sum(sum(beta[lambda_mat!=0] !=0, na.rm = T), na.rm = T) 
   }
   
   LLk <-  (n/2)*(lik1-lik2) 
