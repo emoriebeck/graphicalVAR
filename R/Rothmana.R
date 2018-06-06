@@ -66,9 +66,9 @@ function(X, Y, lambda_beta, lambda_kappa, convergence = 1e-4, gamma = 0.5, maxit
   ZeroIndex <- which(kappa==0, arr.ind=TRUE) ## Select the path of zeros
   WS <-  (t(Y)%*%Y - t(Y) %*% X  %*% beta - t(beta) %*% t(X)%*%Y + t(beta) %*% t(X)%*%X %*% beta)/(nrow(X))
   
-  if (any(eigen(WS,only.values = TRUE)$values < -sqrt(.Machine$double.eps))){
-    stop("Residual covariance matrix is not non-negative definite")
-  }
+  # if (any(eigen(WS,only.values = TRUE)$values < -sqrt(.Machine$double.eps))){
+  #   stop("Residual covariance matrix is not non-negative definite")
+  # }
   
   if (likelihood == "unpenalized"){
     if (nrow(ZeroIndex)==0){
